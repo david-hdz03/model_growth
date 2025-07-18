@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './App.css'
 
 function App() {
@@ -7,27 +7,47 @@ function App() {
   const portfolioRef = useRef(null);
   const contactRef = useRef(null);
 
+  // Estado para el menú hamburguesa
+  const [menuOpen, setMenuOpen] = useState(false);
+
   useEffect(() => {
+    const isMobile = window.innerWidth < 800;
     const sections = [aboutRef.current, servicesRef.current, portfolioRef.current, contactRef.current];
-    const observer = new window.IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-    sections.forEach(section => {
-      if (section) observer.observe(section);
-    });
-    return () => {
+    let observer;
+
+    if (!isMobile) {
+      observer = new window.IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
       sections.forEach(section => {
-        if (section) observer.unobserve(section);
+        if (section) observer.observe(section);
       });
+    } else {
+      // En mobile, mostrar todo sin animación
+      sections.forEach(section => {
+        if (section) section.classList.add('visible');
+      });
+    }
+
+    // Cleanup
+    return () => {
+      if (observer) {
+        sections.forEach(section => {
+          if (section) observer.unobserve(section);
+        });
+      }
     };
-  }, []);
+  }, [aboutRef, servicesRef, portfolioRef, contactRef]);
+
+  // Cierra el menú al hacer click en un link
+  const handleLinkClick = () => setMenuOpen(false);
 
   return (
     <div className="app-container">
@@ -48,11 +68,21 @@ function App() {
       <header>
         <nav className="navbar">
           <div className="logo">MODEL GROWTH</div>
-          <ul className="nav-links">
-            <li><a href="#about">SOBRE NOSOTROS</a></li>
-            <li><a href="#services">NUESTROS SERVICIOS</a></li>
-            <li><a href="#portfolio">VENTAJAS</a></li>
-            <li><a href="#contact">CONTACTO</a></li>
+          <button
+            className={`hamburger${menuOpen ? ' open' : ''}`}
+            aria-label="Abrir menú"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(v => !v)}
+          >
+            <span className="bar" />
+            <span className="bar" />
+            <span className="bar" />
+          </button>
+          <ul className={`nav-links${menuOpen ? ' open' : ''}`}>
+            <li><a href="#about" onClick={handleLinkClick}>SOBRE NOSOTROS</a></li>
+            <li><a href="#services" onClick={handleLinkClick}>NUESTROS SERVICIOS</a></li>
+            <li><a href="#portfolio" onClick={handleLinkClick}>VENTAJAS</a></li>
+            <li><a href="#contact" onClick={handleLinkClick}>CONTACTO</a></li>
           </ul>
         </nav>
       </header>

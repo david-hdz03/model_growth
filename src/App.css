@@ -50,6 +50,64 @@ header {
   color: #c48a78;
 }
 
+/* Hamburguesa */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: auto;
+  z-index: 110;
+}
+.hamburger .bar {
+  width: 28px;
+  height: 4px;
+  background: #c48a78;
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* Mostrar hamburguesa y ocultar links en mobile */
+@media (max-width: 800px) {
+  .hamburger {
+    display: flex;
+  }
+  .nav-links {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: #fdfaf8;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: flex-start;
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.07);
+    z-index: 100;
+    display: none;
+  }
+  .nav-links.open {
+    display: flex;
+  }
+}
+
+/* Animación hamburguesa a X */
+.hamburger.open .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger.open .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
 /* Main Content & Sections */
 main {
   flex: 1;
@@ -368,5 +426,56 @@ main {
   .services-cards .service-card:nth-child(even) {
     margin-left: 0;
     margin-right: 0;
+  }
+}
+
+/* ServiceCard responsive: centrado y compacto en mobile */
+@media (max-width: 800px) {
+  .services-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    gap: 1.2rem;
+  }
+  .service-card,
+  .service-card-left,
+  .service-card-right {
+    width: 95vw;
+    max-width: 370px;
+    min-width: 0;
+    margin: 0 auto !important;
+    padding: 1rem 0.7rem;
+    box-sizing: border-box;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+    gap: 0.5rem;
+    border-radius: 16px;
+    background: #fff;
+  }
+  .service-card-img {
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto 0.5rem auto;
+    display: flex;
+    justify-content: center;
+  }
+  .service-card-img img {
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+  }
+  .service-card-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+  }
+  .service-card-content p {
+    font-size: 0.98rem;
   }
 }
