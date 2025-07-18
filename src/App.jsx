@@ -150,7 +150,9 @@ function App() {
                 <span>MODEL GROWTH</span>
               </div>
               <div className="contact-socials">
-                <a href="https://www.instagram.com/mode.lgrowth?igsh=emt4Zm8wdmw2OHZ3" target="_blank" rel="noopener noreferrer"><i className="fab fa-instagram"></i></a>
+                <a href={import.meta.env.VITE_IG_URL} target="_blank" rel="noopener noreferrer">
+                  <i className="fab fa-instagram"></i>
+                </a>
                 <a href="#"><i className="fab fa-twitter"></i></a>
               </div>
             </div>
