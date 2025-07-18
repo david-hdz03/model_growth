@@ -458,16 +458,18 @@ main {
     background: #fff;
   }
   .service-card-img {
+    flex: none;
     width: 100%;
     max-width: 260px;
+    height: auto;
     margin: 0 auto 0.5rem auto;
     display: flex;
     justify-content: center;
   }
   .service-card-img img {
     width: 100%;
-    max-width: 260px;
     height: auto;
+    object-fit: contain; /* <-- Cambia cover por contain */
     border-radius: 12px;
     display: block;
   }
@@ -477,5 +479,33 @@ main {
   }
   .service-card-content p {
     font-size: 0.98rem;
+  }
+}
+
+/* Contact Section ajustes en mobile */
+@media (max-width: 800px) {
+  .contact-section {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+  .contact-card {
+    padding: 1.2rem 0.5rem;
+    max-width: 98vw;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .contact-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+  .contact-form button {
+    font-size: 1rem;
+    padding: 0.8rem;
   }
 }
