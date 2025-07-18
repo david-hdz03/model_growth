@@ -19,7 +19,7 @@ function ContactSection({ contactRef }) {
         <div className="contact-body">
           <h2>¿Quieres trabajar con nosotros?</h2>
           <p>Déjanos tus datos y te contactaremos.</p>
-          <form className="contact-form" action="https://formspree.io/f/xdkzeped" method="POST">
+          <form className="contact-form" action="https://formspree.io/f/xdkzeped" method="POST" autoComplete="off">
             <input type="text" name="name" placeholder="Tu Nombre" required />
             <input type="email" name="email" placeholder="Tu Email" required />
             <textarea name="message" placeholder="Tu Mensaje" required></textarea>
@@ -27,6 +27,22 @@ function ContactSection({ contactRef }) {
           </form>
         </div>
       </div>
+      <style>
+        {`
+        @media (max-width: 600px) {
+          .contact-card {
+            padding: 1.2rem 0.5rem !important;
+            max-width: 98vw !important;
+            box-sizing: border-box;
+          }
+          .contact-form input,
+          .contact-form textarea {
+            font-size: 1rem;
+            padding: 0.8rem;
+          }
+        }
+        `}
+      </style>
     </section>
   );
 }
